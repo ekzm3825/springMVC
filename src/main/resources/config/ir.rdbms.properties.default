@@ -1,0 +1,40 @@
+################################################
+# DataSource (ir.rdbms.properties)
+################################################
+# Supported DBMSs
+# - Oracle
+#   * Driver: oracle.jdbc.driver.OracleDriver
+#   * URL: jdbc:oracle:thin:@{{HOST}}:{{PORT}}:{{SID}}
+#          jdbc:oracle:thin:@127.0.0.1:1521:orcl
+# - MySQL
+#   * Driver: com.mysql.jdbc.Driver
+#   * URL: jdbc:mysql://{{HOST}}:{{PORT}}/{{DB_NAME}}?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+#          jdbc:mysql://127.0.0.1:3306/INFOCHATTER2?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+# - MariaDB
+#   * Driver: org.mariadb.jdbc.Driver
+#   * URL: jdbc:mariadb://{{HOST}}:{{PORT}}/{{DB_NAME}}?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+#          jdbc:mariadb://127.0.0.1:3306/INFOCHATTER2?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+################################################
+ir.table.prefix IC01
+ir.jdbc.driver.class com.mysql.jdbc.Driver
+ir.jdbc.url jdbc:mysql://127.0.0.1:3306/INFOCHATTER2?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+ir.jdbc.username USERNAME
+ir.jdbc.password PASSWORD
+
+# Since version 2.4.3, we support 'database encoding' option.
+# This option enables encoding/decoding string between system encoding and the designated database encoding
+# when the program inserts, updates/selects string(includes char stream).
+#
+# The possible value for the option can be found in:
+#	http://java.sun.com/j2se/1.5.0/docs/guide/intl/encoding.doc.html
+#	http://www.iana.org/assignments/character-sets
+#	http://java.sun.com/j2se/1.4.2/docs/api/java/lang/String.html
+#		see String(byte[] bytes, int offset, int length, String charsetName)
+#
+# The following example shows setting for Oracle with US7ASCII.
+# ex) ir.db.encoding 8859_1
+#
+# This is an optional property.
+# If you have no problem without using this option, do not use.
+#
+#ir.db.encoding ENCODING_HERE

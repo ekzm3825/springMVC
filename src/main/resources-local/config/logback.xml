@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="5 seconds">
+
+    <include resource="config/logback-base.xml"/>
+
+    <logger name="net.sf.jxls" level="off"/>
+    <logger name="org.apache.commons" level="off"/>
+
+    <logger name="com.diquest.disa4" level="debug"/>
+
+    <!-- >>>>> log4jdbc-->
+    <logger name="jdbc.sqlonly" level="off"/>
+    <logger name="jdbc.sqltiming" level="info"/>
+    <logger name="java.sql" level="off"/>
+    <logger name="jdbc.audit" level="off"/>
+    <logger name="jdbc.resultset" level="off"/>
+    <logger name="jdbc.resultsettable" level="info"/>
+    <logger name="jdbc.connection" level="off"/>
+    <!-- <<<<< log4jdbc-->
+
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>	

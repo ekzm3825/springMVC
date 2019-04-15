@@ -1,0 +1,17 @@
+!**/css/dist
+**/temp/*
+out
+build
+target
+*.classpath
+*.project
+*.springBeans
+*.settings
+*.metadata
+*.idea
+*.iml
+*.pmd
+node_modules
+bower_components
+bower.json
+overlays

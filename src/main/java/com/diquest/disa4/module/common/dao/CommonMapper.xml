@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Dec 26 15:50:56 KST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Common">
+
+    <sql id="pagingStart" databaseId="mysql">
+
+    </sql>
+
+    <sql id="pagingStart" databaseId="oracle">
+        <if test="pageNo != null &amp;&amp; pageSize != null">
+            SELECT * FROM (
+            SELECT /*+ FIRST_ROWS(${pageSize}) */ SRC_T.*, ROWNUM RNUM FROM (
+        </if>
+    </sql>
+
+    <sql id="pagingEnd" databaseId="mysql">
+        <if test="limit != null &amp;&amp; offset != null">
+            LIMIT ${limit} OFFSET ${offset}
+        </if>
+    </sql>
+
+    <sql id="pagingEnd" databaseId="oracle">
+        <if test="pageNo != null &amp;&amp; pageSize != null">
+            <![CDATA[
+                ) SRC_T WHERE ROWNUM <= (${pageNo} * ${pageSize})
+            ) WHERE RNUM > ((${pageNo} - 1) * ${pageSize})
+        ]]>
+        </if>
+    </sql>
+
+    <sql id="searchCriteria" databaseId="mysql">
+        <if test="oredCriteria != null">
+            <where >
+                <foreach collection="oredCriteria" item="criteria">
+                    <if test="criteria.valid" >
+                        ${criteria.operator}
+                        <trim prefix="(" suffix=")" prefixOverrides="AND|OR" >
+                            <foreach collection="criteria.criteria" item="criterion" >
+                                <choose >
+                                    <when test="criterion.noValue" >
+                                        ${criterion.operator} ${criterion.condition}
+                                    </when>
+                                    <when test="criterion.singleValue" >
+                                        ${criterion.operator} ${criterion.condition} #{criterion.value}
+                                    </when>
+                                    <when test="criterion.betweenValue" >
+                                        ${criterion.operator} (${criterion.condition} #{criterion.value} AND #{criterion.secondValue})
+                                    </when>
+                                    <when test="criterion.dateRangeValue" >
+                                        ${criterion.operator} (${criterion.condition} TO_DATE(#{criterion.value}, 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{criterion.secondValue}, 'YYYY-MM-DD HH24:MI:SS'))
+                                    </when>
+                                    <when test="criterion.listValue" >
+                                        ${criterion.operator} ${criterion.condition}
+                                        <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                            #{listItem}
+                                        </foreach>
+                                    </when>
+                                </choose>
+                            </foreach>
+                        </trim>
+                    </if>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+    <sql id="searchCriteria" databaseId="oracle">
+        <if test="oredCriteria != null">
+            <where >
+                <foreach collection="oredCriteria" item="criteria">
+                    <if test="criteria.valid" >
+                        ${criteria.operator}
+                        <trim prefix="(" suffix=")" prefixOverrides="AND|OR" >
+                            <foreach collection="criteria.criteria" item="criterion" >
+                                <choose >
+                                    <when test="criterion.noValue" >
+                                        ${criterion.operator} ${criterion.condition}
+                                    </when>
+                                    <when test="criterion.singleValue" >
+                                        ${criterion.operator} ${criterion.condition} #{criterion.value}
+                                    </when>
+                                    <when test="criterion.betweenValue" >
+                                        ${criterion.operator} (${criterion.condition} #{criterion.value} AND #{criterion.secondValue})
+                                    </when>
+                                    <when test="criterion.dateRangeValue" >
+                                        ${criterion.operator} (${criterion.condition} #{criterion.value} AND #{criterion.secondValue})
+                                    </when>
+                                    <when test="criterion.listValue" >
+                                        ${criterion.operator} ${criterion.condition}
+                                        <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                            #{listItem}
+                                        </foreach>
+                                    </when>
+                                </choose>
+                            </foreach>
+                        </trim>
+                    </if>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+</mapper>
